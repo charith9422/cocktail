@@ -1,15 +1,23 @@
+import React from "react";
+import { Route, Routes } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 import "./App.scss";
-import { DatePicker } from "antd";
-import { useTranslation } from "react-i18next";
+import Favorites from "./components/Favorites/Favorites";
+import Home from "./components/Home/Home";
+import Search from "./components/Search/Search";
 
 function App() {
-	const { t } = useTranslation();
 	return (
-		<div className="App">
-			<button className="btn btn-primary">Test</button>
-			<DatePicker />
-			<p>{t("test")}</p>
-		</div>
+		<React.Fragment>
+			<BrowserRouter>
+				<Routes>
+					<Route index element={<Home />} />
+					<Route path="/favorites" element={<Favorites />} />
+					<Route path="/search-list" element={<Search />} />
+					<Route path="/*" element={<Home />} />
+				</Routes>
+			</BrowserRouter>
+		</React.Fragment>
 	);
 }
 
