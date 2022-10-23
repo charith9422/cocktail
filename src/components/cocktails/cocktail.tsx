@@ -1,7 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { fetchRandomCocktails } from "../../shared/fetchers/cocktails";
-import { Drink } from "../../shared/models";
+import {
+	fetchRandomCocktails,
+	searchCocktailByName,
+} from "../../shared/fetchers/cocktails";
+import { Drink, Params } from "../../shared/models";
 
 const Cocktail: React.FunctionComponent = () => {
 	const { data, isError, isLoading, refetch } = useQuery(
@@ -10,6 +13,11 @@ const Cocktail: React.FunctionComponent = () => {
 		{ staleTime: 60000 }
 	);
 
+	const { refetch: getSearchdata } = useQuery(
+		["todos", "margarita"],
+		() => searchCocktailByName({ name: "margarita" } as Params),
+		{ enabled: false }
+	);
 	const [cocktails, setCocktails] = useState<Drink[]>([]);
 
 	const onClick = () => {
@@ -29,6 +37,9 @@ const Cocktail: React.FunctionComponent = () => {
 
 			<button className="btn btn-primary" onClick={onClick}>
 				Refresh
+			</button>
+			<button className="btn btn-primary" onClick={() => getSearchdata()}>
+				Magarita
 			</button>
 		</>
 	);

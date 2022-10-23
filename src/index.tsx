@@ -8,18 +8,21 @@ import { I18nextProvider } from "react-i18next";
 import { i18n } from "./i18n/config";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
 );
 const client = new QueryClient();
 root.render(
-	<QueryClientProvider client={client}>
-		<I18nextProvider i18n={i18n}>
-			<App />
-			<ReactQueryDevtools initialIsOpen />
-		</I18nextProvider>
-	</QueryClientProvider>
+	<BrowserRouter>
+		<QueryClientProvider client={client}>
+			<I18nextProvider i18n={i18n}>
+				<App />
+				<ReactQueryDevtools initialIsOpen />
+			</I18nextProvider>
+		</QueryClientProvider>
+	</BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
