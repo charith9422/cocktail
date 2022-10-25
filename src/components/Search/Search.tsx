@@ -36,12 +36,12 @@ const Search = () => {
 				<Row className="justify-content-md-center">
 					<Col xs lg="10">
 						<h5>
-							{t("resultsFound")}:{cocktails.drinks.length}
+							{t("resultsFound")}:{cocktails?.drinks?.length}
 						</h5>
 					</Col>
 				</Row>
 				<Row className="justify-content-md-center">
-					{cocktails?.drinks.map((d, i) => (
+					{cocktails?.drinks?.map((d, i) => (
 						<React.Fragment key={i}>
 							<Col xs lg="2" className="widget">
 								<CardWidget
