@@ -1,8 +1,8 @@
-import React, { useEffect, useState, ForwardedRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchRandomCocktails } from "../../shared/fetchers/cocktails";
-import { Cocktails, HomeRefs } from "../../shared/models";
+import { Cocktails } from "../../shared/models";
 import CardWidget from "../../shared/components/CardWidget/CardWidget";
 import Spinner from "../../shared/components/Spinner/Spinner";
 import { Row } from "react-bootstrap";
@@ -11,7 +11,7 @@ import { ReloadOutlined } from "@ant-design/icons";
 import "./Home.scss";
 import { useTranslation } from "react-i18next";
 
-const Home: React.FC<any> = (props: any, ref: ForwardedRef<HomeRefs>) => {
+const Home: React.FC<any> = () => {
 	const {
 		data: d1,
 		isError: e1,
