@@ -1,70 +1,80 @@
-import React, { ChangeEventHandler, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router";
 import "./App.scss";
 import Favorites from "./components/Favorites/Favorites";
 import Home from "./components/Home/Home";
 import Search from "./components/Search/Search";
 import SearchBar from "./shared/components/SearchBar/SearchBar";
-import { Button, Col, Container } from "react-bootstrap";
+import { Col, Container } from "react-bootstrap";
 import Row from "react-bootstrap/esm/Row";
-import { Cocktails, HomeRefs, Params } from "./shared/models";
-import { ReloadOutlined } from "@ant-design/icons";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { Params } from "./shared/models";
+import { useMutation } from "@tanstack/react-query";
 import { searchCocktailByName } from "./shared/fetchers/cocktails";
-import { Skeleton } from "antd";
-import Loading from "./shared/components/Loading/Loading";
-import Error from "./shared/components/Error/Error";
+import { CocktailContext } from "./shared/context/CocktailContext";
+import NavigationBar from "./shared/components/NavigationBar/NavigationBar";
+import Favourite from "./shared/components/Favourite/Favourite";
+import { useTranslation } from "react-i18next";
 
 function App() {
-	const childRef = useRef<HomeRefs>();
 	const navigate = useNavigate();
-	//const [cocktailsS, setCocktailsS] = useState<Cocktails>({ drinks: [] });
-	//const [searchString, setSearchString] = useState<string>();
+	const { favDrinks, setCocktails } = useContext(CocktailContext);
+	const { t } = useTranslation();
 
-	const mutation = useMutation(["searchCocktails"], ({ name }: Params) =>
-		searchCocktailByName({ name })
+	const { data: searchResults, mutate } = useMutation(
+		["searchCocktails"],
+		({ name }: Params) => searchCocktailByName({ name })
 	);
 
-	const onSearch = (v: string) => {
-		try {
-			if (v) {
-				mutation.mutate({ name: v });
-			}
-		} catch (error) {
-			console.log("e", error);
+	useEffect(() => {
+		if (searchResults) {
+			setCocktails(searchResults);
 		}
-	};
+	}, [searchResults, setCocktails]);
 
-	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (!e.target.value) {
-			console.log("e", e.target.value);
+	const onSearch = (v: string) => {
+		if (v) {
+			mutate({ name: v });
+			navigate("/search-list");
 		}
 	};
 
 	return (
 		<React.Fragment>
+			<NavigationBar
+				brandName={t("brandName")}
+				navItem={
+					<Favourite
+						title={t("myFavorites")}
+						count={favDrinks.length}
+						onClick={() => navigate("/favorites")}
+					></Favourite>
+				}
+				onBrandClick={() => navigate("/")}
+			></NavigationBar>
 			<Container fluid>
 				<Row className="top-tool-bar">
 					<Col xs={12} lg={{ offset: 4, span: 4 }}>
 						<SearchBar
 							onSearch={onSearch}
-							placeholderText="Search Cocktail"
-							onChange={onChange}
+							placeholderText={t("searchPlaceholder")}
 						/>
 					</Col>
 				</Row>
 				<Row className="justify-content-md-center">
 					<Col xs lg="12">
-						{mutation.data?.drinks && <Search data={mutation.data} />}
+						<Routes>
+							<Route index element={<Home />} />
+							{searchResults?.drinks && (
+								<Route path="/search-list" element={<Search />} />
+							)}
+							<Route path="/favorites" element={<Favorites />} />
+							<Route path="/*" element={<Home />} />
+						</Routes>
+						{/* {mutation.data?.drinks && <Search />}
 						{mutation.isLoading && <Loading />}
 						{!mutation.data?.drinks && mutation.isSuccess && (
 							<Error text="No Data Found" />
-						)}
-						<Routes>
-							<Route index element={<Home ref={childRef} />} />
-							<Route path="/favorites" element={<Favorites />} />
-							<Route path="/*" element={<Home ref={childRef} />} />
-						</Routes>
+						)} */}
 					</Col>
 				</Row>
 			</Container>

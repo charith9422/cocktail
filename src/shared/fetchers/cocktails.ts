@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Cocktails, Params } from "../models";
 
-const BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1";
+const BASE_URL = process.env.REACT_APP_COCKTAILDB_BASE_URL;
 
 export const fetchRandomCocktails = async () => {
 	const response = await axios.get(`${BASE_URL}/random.php`);

@@ -6,8 +6,8 @@ type ErrorProps = {
 const Error: React.FC<ErrorProps> = ({ text }) => {
 	return (
 		<>
-			<Row>
-				<Col lg={{ offset: 1 }}>
+			<Row className="justify-content-md-center">
+				<Col xs lg="1">
 					<h6>{text}</h6>
 				</Col>
 			</Row>

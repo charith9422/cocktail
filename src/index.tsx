@@ -9,6 +9,7 @@ import { i18n } from "./i18n/config";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter } from "react-router-dom";
+import { CocktailContextProvider } from "./shared/context/CocktailContext";
 
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
@@ -18,7 +19,9 @@ root.render(
 	<BrowserRouter>
 		<QueryClientProvider client={client}>
 			<I18nextProvider i18n={i18n}>
-				<App />
+				<CocktailContextProvider>
+					<App />
+				</CocktailContextProvider>
 				<ReactQueryDevtools initialIsOpen />
 			</I18nextProvider>
 		</QueryClientProvider>
