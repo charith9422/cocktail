@@ -10,7 +10,7 @@ export interface Cocktails {
 }
 
 export interface Params {
-	name?: string;
+	name: string;
 }
 
 export enum Type {

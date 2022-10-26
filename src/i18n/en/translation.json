@@ -4,5 +4,6 @@
   "randomCocktails": "Random Cocktails",
   "myFavorites": "My Favorites",
   "noFavorites": "No Favorites",
-  "searchPlaceholder": "Search Cocktail"
+  "searchPlaceholder": "Search Cocktail",
+  "noSearchResults": "No Results Found"
 }

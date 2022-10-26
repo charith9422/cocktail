@@ -5,6 +5,7 @@ import CardWidget from "../../shared/components/CardWidget/CardWidget";
 import CocktailContext from "../../shared/context/CocktailContext";
 import { Cocktails, OperationalParams, Type } from "../../shared/models";
 import "./Search.scss";
+import Error from "../../shared/components/Error/Error";
 
 export type SearchProps = {
 	data: Cocktails;
@@ -36,7 +37,8 @@ const Search = () => {
 				<Row className="justify-content-md-center">
 					<Col xs lg="10">
 						<h5>
-							{t("resultsFound")}:{cocktails?.drinks?.length}
+							{t("resultsFound")}:
+							{cocktails?.drinks?.length ? cocktails?.drinks?.length : 0}
 						</h5>
 					</Col>
 				</Row>
@@ -65,6 +67,9 @@ const Search = () => {
 							</Col>
 						</React.Fragment>
 					))}
+					{(cocktails?.drinks?.length === 0 || !cocktails.drinks) && (
+						<Error text={t("noSearchResults")}></Error>
+					)}
 				</Row>
 			</div>
 		</>

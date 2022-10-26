@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { Route, Routes, useNavigate } from "react-router";
 import "./App.scss";
 import Favorites from "./components/Favorites/Favorites";
@@ -7,33 +7,20 @@ import Search from "./components/Search/Search";
 import SearchBar from "./shared/components/SearchBar/SearchBar";
 import { Col, Container } from "react-bootstrap";
 import Row from "react-bootstrap/esm/Row";
-import { Params } from "./shared/models";
-import { useMutation } from "@tanstack/react-query";
-import { searchCocktailByName } from "./shared/fetchers/cocktails";
-import { CocktailContext } from "./shared/context/CocktailContext";
 import NavigationBar from "./shared/components/NavigationBar/NavigationBar";
 import Favourite from "./shared/components/Favourite/Favourite";
 import { useTranslation } from "react-i18next";
+import { useSearchCocktails } from "./shared/hooks/useSearchCocktails";
 
 function App() {
 	const navigate = useNavigate();
-	const { favDrinks, setCocktails } = useContext(CocktailContext);
 	const { t } = useTranslation();
 
-	const { data: searchResults, mutate } = useMutation(
-		["searchCocktails"],
-		({ name }: Params) => searchCocktailByName({ name })
-	);
+	const { favDrinks, triggerOnSearch } = useSearchCocktails();
 
-	useEffect(() => {
-		if (searchResults) {
-			setCocktails(searchResults);
-		}
-	}, [searchResults, setCocktails]);
-
-	const onSearch = (v: string) => {
-		if (v) {
-			mutate({ name: v });
+	const onSearch = (value: string) => {
+		if (value) {
+			triggerOnSearch(value);
 			navigate("/search-list");
 		}
 	};
@@ -64,17 +51,10 @@ function App() {
 					<Col xs lg="12">
 						<Routes>
 							<Route index element={<Home />} />
-							{searchResults?.drinks && (
-								<Route path="/search-list" element={<Search />} />
-							)}
+							<Route path="/search-list" element={<Search />} />
 							<Route path="/favorites" element={<Favorites />} />
 							<Route path="/*" element={<Home />} />
 						</Routes>
-						{/* {mutation.data?.drinks && <Search />}
-						{mutation.isLoading && <Loading />}
-						{!mutation.data?.drinks && mutation.isSuccess && (
-							<Error text="No Data Found" />
-						)} */}
 					</Col>
 				</Row>
 			</Container>

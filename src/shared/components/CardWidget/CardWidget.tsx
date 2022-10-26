@@ -43,9 +43,15 @@ const CardWidget: React.FC<CardWidgetProps> = ({
 							description={description}
 							avatar={
 								isFavorite ? (
-									<LikeFilled onClick={onClickRemoveFromFavorites} />
+									<LikeFilled
+										onClick={onClickRemoveFromFavorites}
+										className="fav-ico"
+									/>
 								) : (
-									<LikeOutlined onClick={onClickAddToFavorites} />
+									<LikeOutlined
+										onClick={onClickAddToFavorites}
+										className="fav-ico"
+									/>
 								)
 							}
 						/>
