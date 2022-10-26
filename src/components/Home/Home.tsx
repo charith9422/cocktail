@@ -12,7 +12,8 @@ import { useRandomCocktails } from "../../shared/hooks/useRandomCocktails";
 
 const Home: React.FC = () => {
 	const { t } = useTranslation();
-	const { data, isError, isLoading, refreshAll } = useRandomCocktails();
+	const { data, isError, isLoading, isFetching, refreshAll } =
+		useRandomCocktails();
 
 	if (isError) {
 		return <h1>Error occurred!</h1>;
@@ -50,7 +51,7 @@ const Home: React.FC = () => {
 										title={d.strDrink}
 										description={d.strCategory}
 										imageUrl={d.strDrinkThumb}
-										loading={isLoading}
+										loading={isFetching}
 									/>
 								</Col>
 							</React.Fragment>

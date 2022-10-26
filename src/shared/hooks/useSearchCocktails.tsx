@@ -7,7 +7,7 @@ export const useSearchCocktails = () => {
 	const { favDrinks, setCocktails } = useContext(CocktailContext);
 
 	const { data: searchResults, mutate } = useMutation(
-		["searchCocktailsM"],
+		["searchCocktails"],
 		searchCocktailByName
 	);
 

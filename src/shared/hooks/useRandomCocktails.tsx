@@ -7,6 +7,7 @@ export const useRandomCocktails = () => {
 	const [data, setData] = useState<Cocktails>();
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [isError, setIsError] = useState<boolean>(false);
+	const [isFetching, setIsFetching] = useState<boolean>(false);
 
 	const {
 		data: d1,
@@ -70,13 +71,18 @@ export const useRandomCocktails = () => {
 			];
 			setData({ drinks: randomDrinks });
 		}
-		if (f1 || f2 || f3 || f4 || f5) {
+		if (l1 || l2 || l3 || l4 || l5) {
 			setIsLoading(true);
 		} else {
 			setIsLoading(false);
 		}
 		if (e1 || e2 || e2 || e3 || e4 || e5) {
 			setIsError(true);
+		}
+		if (f1 || f2 || f3 || f4 || f5) {
+			setIsFetching(true);
+		} else {
+			setIsFetching(false);
 		}
 	}, [
 		d1,
@@ -108,5 +114,5 @@ export const useRandomCocktails = () => {
 		await r5();
 	};
 
-	return { data, isLoading, isError, refreshAll };
+	return { data, isLoading, isFetching, isError, refreshAll };
 };
