@@ -2,8 +2,8 @@ import React from "react";
 
 import CardWidget from "../../shared/components/CardWidget/CardWidget";
 import Spinner from "../../shared/components/Spinner/Spinner";
-import { Row } from "react-bootstrap";
-import Col from "react-bootstrap/esm/Col";
+import { Col, Row } from "react-bootstrap";
+
 import { ReloadOutlined } from "@ant-design/icons";
 import "./Home.scss";
 import { useTranslation } from "react-i18next";
