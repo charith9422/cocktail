@@ -16,7 +16,10 @@ import { fetchRandomData } from "./mocks/handlers";
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
 );
-if (process.env.NODE_ENV === "development") {
+if (
+	process.env.NODE_ENV === "development" ||
+	process.env.NODE_ENV === "production"
+) {
 	const msw = setupWorker(...[fetchRandomData]);
 	msw.start();
 }
