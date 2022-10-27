@@ -47,6 +47,7 @@ const Search = () => {
 						<React.Fragment key={i}>
 							<Col xs lg="2" className="widget">
 								<CardWidget
+									index={i}
 									title={d.strDrink}
 									imageUrl={d.strDrinkThumb}
 									enableFavorites

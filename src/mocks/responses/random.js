@@ -16,7 +16,7 @@ export const randomCocktails = {
     "strInstructionsIT": "Versare una parte di Jack Daniels e una parte diJim Beam nel bicchierino da shot, infine versare il Wild Turkey.",
     "strInstructionsZH-HANS": null,
     "strInstructionsZH-HANT": null,
-    "strDrinkThumb": "https:\/\/www.thecocktaildb.com\/images\/media\/drink\/2j1m881503563583.jpg",
+    "strDrinkThumb": "https:\\/\\/www.thecocktaildb.com\\/images\\/media\\/drink\\/2j1m881503563583.jpg",
     "strIngredient1": "Jim Beam",
     "strIngredient2": "Jack Daniels",
     "strIngredient3": "Wild Turkey",
@@ -52,4 +52,8 @@ export const randomCocktails = {
     "strCreativeCommonsConfirmed": "No",
     "dateModified": "2017-08-24 09:33:03"
   }]
+}
+
+export const notFoundCocktails = {
+  status: '404'
 }

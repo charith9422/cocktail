@@ -1,81 +1,42 @@
-import React from "react";
-import {
-	findByText,
-	render,
-	renderHook,
-	screen,
-	waitFor,
-} from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import App from "./App";
-import axios from "axios";
 import { BrowserRouter as Router } from "react-router-dom";
 import { CocktailContextProvider } from "./shared/context/CocktailContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { server } from "../src/mocks/server";
 import {
-	QueryClient,
-	QueryClientProvider,
-	useQuery,
-} from "@tanstack/react-query";
-
-/* jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-
-const mockedUsedNavigate = jest.fn();
-jest.mock("react-router-dom", () => ({
-	...(jest.requireActual("react-router-dom") as any),
-	useNavigate: () => mockedUsedNavigate,
-})); */
+	fetchRandomData,
+	randomCocktailsErrorResponse,
+} from "./mocks/handlers";
 
 const queryClient = new QueryClient();
-/* const wrapper = ({ children }: any) => (
-	<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-);
-export function useCustomHook() {
-	return useQuery(["customHook"], () => "Hello");
-} */
-describe("App", () => {
-	beforeAll(() => {});
-	test("renders learn react link", () => {
-		//renderHook(() => useCustomHook(), { wrapper });
-		render(
-			<QueryClientProvider client={queryClient}>
-				<CocktailContextProvider>
-					<Router>
-						<App />
-					</Router>
-				</CocktailContextProvider>
-			</QueryClientProvider>
-		);
-		const linkElement = screen.getByText(/brandName/i);
+const wrapper = () => {
+	render(
+		<QueryClientProvider client={queryClient}>
+			<CocktailContextProvider>
+				<Router>
+					<App />
+				</Router>
+			</CocktailContextProvider>
+		</QueryClientProvider>
+	);
+};
 
-		/* mockedAxios.get.mockResolvedValue({
-			data: [
-				{
-					id: 1,
-					name: "Joe Doe",
-				},
-				{
-					id: 2,
-					name: "Jane Doe",
-				},
-			],
-		}); */
+describe("test on App component", () => {
+	afterEach(cleanup);
+	it("<App/> renders initially", () => {
+		wrapper();
+		const linkElement = screen.getByText(/brandName/i);
 		expect(linkElement).toBeInTheDocument();
 	});
-	test("df", async () => {
-		const { getAllByText } = render(
-			<QueryClientProvider client={queryClient}>
-				<CocktailContextProvider>
-					<Router>
-						<App />
-					</Router>
-				</CocktailContextProvider>
-			</QueryClientProvider>
-		);
-		// eslint-disable-next-line testing-library/prefer-screen-queries
-		const i = getAllByText("Shot-gun");
-		await waitFor(() => {
-			screen.getAllByText("Shot-gun");
-		});
-		expect(i).toBeTruthy();
+	it("render with Home component for 200 response random cocktail api", async () => {
+		server.use(fetchRandomData);
+		wrapper();
+		expect(await screen.findByAltText(/alt1/)).toBeInTheDocument();
+	});
+	it("error for 404 response random cocktail api", async () => {
+		server.use(randomCocktailsErrorResponse);
+		wrapper();
+		expect(await screen.findByAltText(/alt1/)).not.toBeInTheDocument();
 	});
 });

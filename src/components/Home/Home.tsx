@@ -48,6 +48,7 @@ const Home: React.FC = () => {
 							<React.Fragment key={i}>
 								<Col xs lg="2">
 									<CardWidget
+										index={i}
 										title={d.strDrink}
 										description={d.strCategory}
 										imageUrl={d.strDrinkThumb}

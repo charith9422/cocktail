@@ -12,6 +12,7 @@ type CardWidgetProps = {
 	isFavorite?: boolean;
 	enableFavorites?: boolean;
 	enableClose?: boolean;
+	index: number;
 	onClickAddToFavorites?: MouseEventHandler<HTMLSpanElement>;
 	onClickRemoveFromFavorites?: MouseEventHandler<HTMLSpanElement>;
 	onClickClose?: MouseEventHandler<HTMLSpanElement>;
@@ -25,6 +26,7 @@ const CardWidget: React.FC<CardWidgetProps> = ({
 	isFavorite,
 	enableFavorites,
 	enableClose,
+	index,
 	onClickAddToFavorites,
 	onClickRemoveFromFavorites,
 	onClickClose,
@@ -34,7 +36,7 @@ const CardWidget: React.FC<CardWidgetProps> = ({
 			<Card
 				hoverable
 				style={{ width: "auto" }}
-				cover={<img alt="example" src={imageUrl} />}
+				cover={<img alt={"alt" + index} src={imageUrl} />}
 			>
 				<Skeleton loading={loading} avatar active>
 					{enableFavorites ? (

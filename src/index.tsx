@@ -10,10 +10,16 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter } from "react-router-dom";
 import { CocktailContextProvider } from "./shared/context/CocktailContext";
 import ErrorBoundary from "antd/lib/alert/ErrorBoundary";
+import { setupWorker } from "msw";
+import { fetchRandomData } from "./mocks/handlers";
 
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
 );
+if (process.env.NODE_ENV === "development") {
+	const msw = setupWorker(...[fetchRandomData]);
+	msw.start();
+}
 const client = new QueryClient();
 root.render(
 	<BrowserRouter>

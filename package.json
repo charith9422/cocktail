@@ -54,5 +54,8 @@
   "devDependencies": {
     "msw": "^0.47.4",
     "react-test-renderer": "^18.2.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
