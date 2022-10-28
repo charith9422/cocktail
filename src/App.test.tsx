@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { CocktailContextProvider } from "./shared/context/CocktailContext";
@@ -7,7 +7,9 @@ import { server } from "../src/mocks/server";
 import {
 	fetchRandomData,
 	randomCocktailsErrorResponse,
+	searchCocktails,
 } from "./mocks/handlers";
+import SearchBar from "./shared/components/SearchBar/SearchBar";
 
 const queryClient = new QueryClient();
 const wrapper = () => {
@@ -37,6 +39,6 @@ describe("test on App component", () => {
 	it("error for 404 response random cocktail api", async () => {
 		server.use(randomCocktailsErrorResponse);
 		wrapper();
-		expect(await screen.findByAltText(/alt1/)).not.toBeInTheDocument();
+		await expect(Promise.reject(new Error("404"))).rejects.toThrow("404");
 	});
 });

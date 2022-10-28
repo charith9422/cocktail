@@ -57,3 +57,15 @@ export const randomCocktails = {
 export const notFoundCocktails = {
   status: '404'
 }
+
+export const searchCocktailsResp = {
+  drinks: [{
+    "strDrink": "Shot-gun",
+    "strDrinkAlternate": null,
+    "strTags": null,
+    "strVideo": null,
+    "strCategory": "Shot",
+    "strIBA": null,
+    "strAlcoholic": "Alcoholic",
+  }]
+}

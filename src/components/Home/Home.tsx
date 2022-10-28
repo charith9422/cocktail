@@ -8,7 +8,7 @@ import { ReloadOutlined } from "@ant-design/icons";
 import "./Home.scss";
 import { useTranslation } from "react-i18next";
 import { Button } from "antd";
-import { useRandomCocktails } from "../../shared/hooks/useRandomCocktails";
+import { useRandomCocktails } from "../../helpers/hooks/useRandomCocktails";
 
 const Home: React.FC = () => {
 	const { t } = useTranslation();

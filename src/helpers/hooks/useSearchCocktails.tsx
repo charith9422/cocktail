@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useContext, useEffect } from "react";
-import CocktailContext from "../context/CocktailContext";
-import { searchCocktailByName } from "../fetchers/cocktails";
+import CocktailContext from "../../shared/context/CocktailContext";
+import { searchCocktailByName } from "../../shared/fetchers/cocktails";
 
 export const useSearchCocktails = () => {
 	const { favDrinks, setCocktails } = useContext(CocktailContext);

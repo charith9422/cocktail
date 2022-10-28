@@ -10,7 +10,7 @@ import Row from "react-bootstrap/esm/Row";
 import NavigationBar from "./shared/components/NavigationBar/NavigationBar";
 import Favourite from "./shared/components/Favourite/Favourite";
 import { useTranslation } from "react-i18next";
-import { useSearchCocktails } from "./shared/hooks/useSearchCocktails";
+import { useSearchCocktails } from "./helpers/hooks/useSearchCocktails";
 
 function App() {
 	const navigate = useNavigate();

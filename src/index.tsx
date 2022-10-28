@@ -12,13 +12,14 @@ import { CocktailContextProvider } from "./shared/context/CocktailContext";
 import ErrorBoundary from "antd/lib/alert/ErrorBoundary";
 import { setupWorker } from "msw";
 import { fetchRandomData } from "./mocks/handlers";
+import { DEVELOPMENT, PRODUCTION } from "./shared/constants";
 
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
 );
 if (
-	process.env.NODE_ENV === "development" ||
-	process.env.NODE_ENV === "production"
+	process.env.NODE_ENV === DEVELOPMENT ||
+	process.env.NODE_ENV === PRODUCTION
 ) {
 	const msw = setupWorker(...[fetchRandomData]);
 	msw.start();
@@ -26,6 +27,7 @@ if (
 const client = new QueryClient();
 root.render(
 	<BrowserRouter>
+		{/* Included higher order components for react-router,react query,internationalization,error boundary and context api */}
 		<QueryClientProvider client={client}>
 			<I18nextProvider i18n={i18n}>
 				<ErrorBoundary message="Error Occurred! Seems like there is and issue with relevant data sources">
